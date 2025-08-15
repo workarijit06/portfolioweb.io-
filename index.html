@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arijit Paswan | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Fira+Mono&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      /* Replace the current background with Option 6: Cyberpunk Grid */
+      background: #000;
+      background-image: 
+        linear-gradient(rgba(0, 255, 127, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 127, 0.1) 1px, transparent 1px),
+        linear-gradient(rgba(233, 69, 96, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(233, 69, 96, 0.05) 1px, transparent 1px);
+      background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+      background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+      color: #f4f4f4;
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+    header {
+      /* Replace the current header background with Option 1: Matrix/Code Style */
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 127, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 191, 255, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, transparent 49%, rgba(0, 255, 127, 0.03) 50%, transparent 51%);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+    }
+    .logo .ap-logo {
+      font-family: 'Fira Mono', monospace;
+      font-size: 2.1rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #e94560, #0f3460);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Hamburger Menu Styles */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .hamburger:hover {
+      background: rgba(233, 69, 96, 0.1);
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: linear-gradient(90deg, #e94560, #f4d03f);
+      margin: 3px 0;
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform-origin: center;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: scale(0);
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+    
+    /* Navigation Styles */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav a {
+      color: #eaeaea;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.08rem;
+      position: relative;
+      transition: color 0.2s;
+    }
+    nav a:after {
+      content: '';
+      display: block;
+      width: 0%;
+      height: 2px;
+      background: #e94560;
+      transition: width 0.3s;
+      margin: auto;
+    }
+    nav a:hover:after {
+      width: 100%;
+    }
+    nav a:hover {
+      color: #e94560;
+    }
+    
+    /* Mobile Menu Overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(26, 26, 46, 0.98);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .mobile-menu.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .mobile-menu-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      gap: 2rem;
+    }
+    .mobile-menu a {
+      color: #eaeaea;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .mobile-menu a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #e94560, #0f3460);
+      transition: left 0.3s;
+      z-index: -1;
+    }
+    .mobile-menu a:hover::before {
+      left: 0;
+    }
+    .mobile-menu a:hover {
+      color: #fff;
+      transform: scale(1.05);
+    }
+    .close-mobile-menu {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      color: #e94560;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: all 0.3s;
+    }
+    .close-mobile-menu:hover {
+      background: rgba(233, 69, 96, 0.1);
+      transform: rotate(90deg);
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 2.5rem 0 0 0;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .hero-text {
+      flex: 1.5;
+      animation: fadeInLeft 1s;
+    }
+    .hero-img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 260px;
+      aspect-ratio: 1 / 1;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      border: 5px solid #e94560;
+      box-shadow: 0 0 30px #0f346080;
+      background: #232526;
+      animation: float 3.5s infinite ease-in-out;
+      cursor: pointer;
+      display: block;
+      transition: box-shadow 0.3s;
+    }
+    .hero-img img:hover {
+      box-shadow: 0 0 50px #e9456099, 0 0 30px #0f346099;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-18px);}
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-60px);}
+      to { opacity: 1; transform: translateX(0);}
+    }
+    .animated-text {
+      display: inline-block;
+      background: linear-gradient(90deg, #e94560, #0f3460, #a8ff78, #f4d03f);
+      background-size: 200% auto;
+      color: #fff;
+      padding: 0.2rem 0.6rem;
+      border-radius: 8px;
+      animation: gradientMove 3.5s linear infinite;
+      font-size: 2.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 20px #e94560aa;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%;}
+      100% { background-position: 100% 50%;}
+    }
+    .hero h2 {
+      margin-top: 0.8rem;
+      margin-bottom: 1.2rem;
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: #f4d03f;
+    }
+    .hero .highlight {
+      color: #e94560;
+      font-weight: 700;
+    }
+    .hero p {
+      color: #eaeaea;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2.2rem;
+      background: linear-gradient(90deg, #e94560, #0f3460);
+      color: #fff;
+      border: none;
+      border-radius: 23px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px #e9456030;
+      transition: background 0.3s, transform 0.2s;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: linear-gradient(90deg, #0f3460, #a8ff78);
+      color: #232526;
+      transform: translateY(-4px) scale(1.05);
+    }
+    section h2 {
+      font-size: 2.2rem;
+      color: #f4d03f;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 6px #0f346080;
+      position: relative;
+    }
+    #about p {
+      font-size: 1.15rem;
+      color: #dadada;
+      margin-bottom: 1rem;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: #232526;
+      border-radius: 16px;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      box-shadow: 0 3px 20px #41434510;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fadeInUp 1.2s;
+    }
+    .skill-card:hover {
+      transform: translateY(-8px) scale(1.04);
+      box-shadow: 0 8px 30px #e9456040;
+    }
+    .skill-card span {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .skill-card h3 {
+      color: #e94560;
+      font-size: 1.18rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: #1a1a2e;
+      border-radius: 16px;
+      padding: 1.2rem 1rem;
+      box-shadow: 0 3px 20px #0f346060;
+      border-left: 4px solid #e94560;
+      transition: box-shadow 0.2s;
+      animation: fadeInUp 1.5s;
+    }
+    .project-card h3 {
+      color: #f4d03f;
+      margin-bottom: 0.7rem;
+      font-size: 1.15rem;
+    }
+    .project-card p {
+      color: #eaeaea;
+      font-size: 1rem;
+    }
+    .gallery {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .gallery img {
+      width: 250px;
+      height: 180px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 2px 12px #e9456020;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+    .gallery img:hover {
+      transform: scale(1.05) rotate(-2deg);
+      box-shadow: 0 8px 32px #f4d03f60;
+      filter: brightness(1.12);
+    }
+    #contact-form {
+      max-width: 520px;
+      margin: 0 auto 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.85rem;
+      border: none;
+      border-radius: 9px;
+      background: #232526;
+      color: #eaeaea;
+      font-size: 1.04rem;
+      font-family: inherit;
+      outline: none;
+      box-shadow: 0 2px 10px #0f346020;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    input:focus, textarea:focus {
+      border: 2px solid #e94560;
+      box-shadow: 0 2px 18px #e9456025;
+    }
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    #form-message {
+      margin-top: 0.7rem;
+      font-size: 1.03rem;
+    }
+    .socials {
+      display: flex;
+      gap: 1.3rem;
+      justify-content: center;
+      margin-top: 1.2rem;
+    }
+    .socials a {
+      color: #e94560;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+    .socials a:hover {
+      color: #f4d03f;
+    }
+    footer {
+      padding: 1.5rem 0;
+      background: #181818;
+      text-align: center;
+    }
+    footer p {
+      color: #eaeaea;
+      font-size: 1.01rem;
+    }
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.95s ease-out, transform 0.95s cubic-bezier(.2,.9,.6,1.2);
+    }
+    .fade-in-section.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    /* Popout modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+      background: rgba(10, 14, 23, 0.93);
+      align-items: center;
+      justify-content: center;
+      animation: fadeInBg 0.3s;
+    }
+    .modal.open {
+      display: flex;
+      animation: fadeInBg 0.4s;
+    }
+    @keyframes fadeInBg {
+      from { background: rgba(10,14,23,0);}
+      to   { background: rgba(10,14,23,0.93);}
+    }
+    .modal-content {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #181a20;
+      box-shadow: 0 12px 64px #e9456040;
+      animation: popImage 0.5s cubic-bezier(.22,1.2,.34,1) forwards;
+      transform: scale(0.7);
+      opacity: 0.65;
+      position: relative;
+    }
+    @keyframes popImage {
+      from { transform: scale(0.72); opacity: 0.65;}
+      60% { transform: scale(1.05); opacity: 1;}
+      to   { transform: scale(1); opacity: 1;}
+    }
+    .modal-content img {
+      width: 100%;
+      height: 100%;
+      max-width: 80vw;
+      max-height: 80vh;
+      object-fit: contain;
+      background: #15171c;
+      display: block;
+      border-radius: 20px;
+    }
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      font-size: 2.1rem;
+      color: #e94560;
+      cursor: pointer;
+      font-weight: 700;
+      background: none;
+      border: none;
+      z-index: 100;
+      transition: color 0.2s;
+    }
+    .close-modal:hover {
+      color: #f4d03f;
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 1.8rem;
+      }
+      .hero-img {
+        max-width: 170px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      nav {
+        display: none;
+      }
+      .mobile-menu {
+        display: block;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.2rem 0.8rem;
+      }
+      .skills-grid, .projects-grid, .gallery {
+        grid-template-columns: 1fr;
+      }
+      .hero-img {
+        max-width: 130px;
+      }
+      .header-container {
+        align-items: center;
+      }
+      .animated-text {
+        font-size: 2.2rem;
+      }
+    }
+    .contact-btn {
+      font-size: 1.2rem;
+      padding: 1rem 2.5rem;
+      margin: 1rem 0;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    .contact-btn:hover {
+      transform: translateY(-6px) scale(1.08);
+      box-shadow: 0 8px 25px #e9456050;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <span class="ap-logo">AP</span>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#photography">Photography</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <!-- Mobile Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="close-mobile-menu" id="closeMobileMenu">&times;</button>
+      <div class="mobile-menu-content">
+        <a href="#about" class="mobile-menu-link">About</a>
+        <a href="#skills" class="mobile-menu-link">Skills</a>
+        <a href="#projects" class="mobile-menu-link">Projects</a>
+        <a href="#photography" class="mobile-menu-link">Photography</a>
+        <a href="#contact" class="mobile-menu-link">Contact</a>
+      </div>
+    </div>
+    
+    <div class="hero">
+      <div class="hero-text">
+        <h1>
+          <span class="animated-text">Arijit Paswan</span>
+        </h1>
+        <h2>
+          <span class="highlight">Tech Enthusiast</span> | Software Developer | Cybersecurity Learner | Photographer
+        </h2>
+        <p>
+          Dedicated B.Tech. student in Electronics & Communication Engineering at RCCIIT, Kolkata.<br>
+          Innovator, creator, and collaborator in <strong>software, cybersecurity, and hardware</strong>.
+        </p>
+        <a class="btn" href="#contact">Let's Connect</a>
+      </div>
+      <div class="hero-img">
+        <img id="profilePic" src="https://github.com/workarijit06/portfolio-works/blob/main/6073570398269721162.jpg?raw=true" alt="Arijit Paswan"/>
+      </div>
+    </div>
+  </header>
+
+  <!-- Modal for popout -->
+  <div class="modal" id="imgModal">
+    <div class="modal-content">
+      <button class="close-modal" id="closeModal" aria-label="Close">&times;</button>
+      <img src="https://github.com/workarijit06/portfolio-works/blob/main/6073570398269721162.jpg?raw=true" alt="Full size Arijit Paswan image"/>
+    </div>
+  </div>
+
+  <main>
+    <section id="about" class="container fade-in-section">
+      <h2>About Me</h2>
+      <p>
+        I'm Arijit Paswan, a passionate B.Tech. student at RCC Institute of Information Technology, Kolkata, specializing in Electronics & Communication Engineering.
+        My interests span software development, cybersecurity, and hardware innovation—constantly learning and building real-world projects.
+      </p>
+      <p>
+        Beyond tech, I'm a <strong>professional photographer & videographer</strong>, using creativity to solve problems and communicate effectively. As a prompt engineer, I streamline ideas and optimize outcomes for projects.
+      </p>
+    </section>
+
+    <section id="skills" class="container fade-in-section">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <span>💻</span>
+          <h3>Software Development</h3>
+          <p>Python, JavaScript, C/C++, Java, Web Dev (HTML, CSS, React)</p>
+        </div>
+        <div class="skill-card">
+          <span>🔐</span>
+          <h3>Cybersecurity</h3>
+          <p>Network Security, Ethical Hacking (Beginner), Linux</p>
+        </div>
+        <div class="skill-card">
+          <span>🛠️</span>
+          <h3>Hardware Innovation</h3>
+          <p>Arduino, IoT Projects, Embedded Systems</p>
+        </div>
+        <div class="skill-card">
+          <span>📷</span>
+          <h3>Photography & Videography</h3>
+          <p>DSLR/Mirrorless, Editing (Lightroom, Premiere Pro)</p>
+        </div>
+        <div class="skill-card">
+          <span>✍️</span>
+          <h3>Prompt Engineering</h3>
+          <p>AI Prompts, Workflow Optimization</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="container fade-in-section">
+      <h2>Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>Smart Home Automation</h3>
+          <p>IoT-based system for automated lighting and security using Arduino & sensors.</p>
+        </div>
+        <div class="project-card">
+          <h3>Personal Portfolio Website</h3>
+          <p>Responsive portfolio to showcase my works and connect with collaborators.</p>
+        </div>
+        <div class="project-card">
+          <h3>Photography Gallery</h3>
+          <p>Curated visual stories through my lens, blending art with tech.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="photography" class="container fade-in-section">
+      <h2>Photography</h2>
+      <div class="gallery">
+        <img src="https://github.com/workarijit06/portfolio-works/blob/main/6064369779457771081.jpg?raw=true" alt="Photography 1" id="galleryPhoto" class="clickable-photo">
+      </div>
+    </section>
+
+    <section id="contact" class="container fade-in-section">
+      <h2>Contact Me</h2>
+      <div style="text-align: center; margin: 2rem 0;">
+        <p style="font-size: 1.1rem; color: #dadada; margin-bottom: 2rem;">
+          I'd love to hear from you! Click the button below to get in touch.
+        </p>
+        <a href="https://forms.google.com/your-form-link-here" 
+           target="_blank" 
+           rel="noopener" 
+           class="btn contact-btn">
+          Contact Me via Google Form
+        </a>
+      </div>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/arijitpaswan/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/workarijit06" target="_blank" rel="noopener">GitHub</a>
+        <!-- Add more social links as needed -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 Arijit Paswan. Crafted with ❤️ and creativity.</p>
+    </div>
+  </footer>
+  
+  <script>
+    // Fade-in Animation on Scroll
+    document.addEventListener("DOMContentLoaded", function() {
+      const faders = document.querySelectorAll('.fade-in-section');
+      const appearOptions = { threshold: 0.15 };
+
+      const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, appearOptions);
+
+      faders.forEach(fader => {
+        appearOnScroll.observe(fader);
+      });
+    });
+
+    // Modal pop-out logic for gallery photo (same as profile pic)
+    const galleryPhoto = document.getElementById('galleryPhoto');
+    const imgModal = document.getElementById('imgModal');
+    const modalImg = document.querySelector('#imgModal .modal-content img');
+    const closeModal = document.getElementById('closeModal');
+    
+    galleryPhoto.addEventListener('click', () => {
+      modalImg.src = galleryPhoto.src;
+      modalImg.alt = galleryPhoto.alt;
+      imgModal.classList.add('open');
+    });
+    
+    // Keep existing profile pic functionality
+    profilePic.addEventListener('click', () => {
+      modalImg.src = profilePic.src;
+      modalImg.alt = profilePic.alt;
+      imgModal.classList.add('open');
+    });
+    
+    closeModal.addEventListener('click', () => {
+      imgModal.classList.remove('open');
+    });
+    
+    // Also close modal on overlay click or Esc
+    imgModal.addEventListener('click', (e) => {
+      if (e.target === imgModal) imgModal.classList.remove('open');
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape") imgModal.classList.remove('open');
+    });
+
+    // Mobile Menu Toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+    // Open mobile menu
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.add('active');
+      mobileMenu.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    });
+
+    // Close mobile menu
+    function closeMobileMenuFunction() {
+      hamburger.classList.remove('active');      // ...existing code...
+          closeMobileMenu.addEventListener('click', closeMobileMenuFunction);
+      // ...existing code...
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = 'auto'; // Enable scrolling
+    }
+
+    closeMobileMenu.addEventListener('click', closeMobileMenuFunction);
+
+    // Close menu when clicking on overlay
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) {
+        closeMobileMenuFunction();
+      }
+    });
+
+    // Close menu when clicking on a link
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeMobileMenuFunction();
+      });
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        closeMobileMenuFunction();
+      }
+    });
+  </script>
+</body>
+</html>
